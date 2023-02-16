@@ -40,6 +40,8 @@ jobs:
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: bandit-results.sarif
+          category: bandit-03-alg
+          wait-for-processing: "true"
         # if: ${{ '1' == '0' }}
         if: always()  # when the previous step fails for so many vulnerabilities
 
