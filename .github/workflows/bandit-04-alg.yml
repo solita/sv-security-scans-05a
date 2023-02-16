@@ -54,9 +54,9 @@ jobs:
           # comma-separated list of paths (glob patterns supported) to exclude from scan (note that these are in addition to the excluded paths provided in the config file) (default: .svn,CVS,.bzr,.hg,.git,__pycache__,.tox,.eggs,*.egg)
           # excluded_paths: # optional, default is DEFAULT
           # comma-separated list of test IDs to skip
-          skips: 'B101'  # optional, default is DEFAULT
+          skips: 'B101'  # does not work  # optional, default is DEFAULT
           # path to a .bandit file that supplies command line arguments
-          ini_path: .bandit  # optional, default is DEFAULT
+          ini_path: .bandit  # works  # optional, default is DEFAULT
 
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v2
