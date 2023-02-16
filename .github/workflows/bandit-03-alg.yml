@@ -5,7 +5,7 @@ on:
   push:
     branches:
       # - main
-      - bandit-03-alg
+      # - bandit-03-alg
       # - bandit-03-aws
       # - bandit-04-alg
       # - bandit-04-aws
