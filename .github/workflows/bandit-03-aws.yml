@@ -6,10 +6,10 @@ on:
     branches:
       # - main
       # - bandit-03-alg
-      # - bandit-03-aws
+      - bandit-03-aws
       # - bandit-04-alg
       # - bandit-04-aws
-      - nonexistent  # avoid triggering on main
+      # - nonexistent  # avoid triggering on main
 jobs:
   scan:
     name: scan
@@ -30,7 +30,7 @@ jobs:
           # SUBDIR=python-algorithms
           SUBDIR=aws-dynamodb-encryption-python
           # see .bandit for excluded/skipped vulnerabilities
-          bandit -r ${SUBDIR} --format sarif --output bandit-results.sarif
+          bandit -r ${SUBDIR} --format sarif --output bandit-results.sarif --exit-zero
           # bandit -c pyproject.toml -r ${SUBDIR}
           # bandit -c bandit.yaml -r ${SUBDIR} > results.txt
           # cat results.txt
@@ -40,6 +40,8 @@ jobs:
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: bandit-results.sarif
+          category: bandit-03-aws
+          wait-for-processing: "true"
         # if: ${{ '1' == '0' }}
         if: always()  # when the previous step fails for so many vulnerabilities
 
