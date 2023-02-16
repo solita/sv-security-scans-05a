@@ -1,6 +1,6 @@
 # 2023-02-16
 
-name: bandit-03-alg
+name: bandit-03-aws
 on:
   push:
     branches:
