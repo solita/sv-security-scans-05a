@@ -1,0 +1,79 @@
+# 2023-02-16
+
+name: trivy-04-fs
+on:
+  push:
+    branches:
+      # - main
+      - nonexistent  # avoid triggering on main
+jobs:
+  scan:
+    name: scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Python virtual environment
+        run: |
+          set -ux
+          python -V
+          python -m venv zvenv
+          source zvenv/bin/activate
+          pip install pip -U
+          pip install -r python-algorithms/requirements.txt -U
+          pip freeze
+          pwd
+          ls -al
+          # ls -al /github/workspace/  # No such file or directory
+        if: ${{ '1' == '0' }}
+
+      - name: Trivy scanner in fs mode
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: 'zvenv'
+          # scan-ref: 'python-algorithms/'
+          # list-all-pkgs: '*'
+          # list-all-pkgs: true
+          # format: 'sarif'
+          # output: 'trivy-results.sarif'
+          # ignore-unfixed: true
+          # severity: 'CRITICAL'
+      # TODO: Advanced Security must be enabled for this repository to use code scanning
+      # - name: Upload Trivy scan results to GitHub Security tab
+      #   uses: github/codeql-action/upload-sarif@v2
+      #   with:
+      #     sarif_file: 'trivy-results.sarif'
+        if: ${{ '1' == '0' }}
+
+      - name: Run Bandit Python SAST
+        run: |
+          set -ux
+          python -m venv zvenv
+          source zvenv/bin/activate
+          pip install pip -U
+          pip install bandit
+          # pip install bandit-sarif-formatter
+          ls -al
+          SUBDIR=python-algorithms
+          # SUBDIR=aws-dynamodb-encryption-python
+          # see .bandit for excluded/skipped vulnerabilities
+          # bandit -r ${SUBDIR} --format sarif --output bandit-results.sarif
+          # bandit -c pyproject.toml -r ${SUBDIR}
+          bandit -c bandit.yaml -r ${SUBDIR} > results.txt
+          cat results.txt
+        if: ${{ '0' == '0' }}
+
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: bandit-results.sarif
+        if: ${{ '1' == '0' }}
+        # if: always()  # when the previous step fails for so many vulnerabilities
+
+      - name: Upload results
+        uses: actions/upload-artifact@v3
+        with:
+          name: results.txt
+          path: results.txt
+        if: always()
