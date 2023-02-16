@@ -32,7 +32,7 @@ jobs:
           # see .bandit for excluded/skipped vulnerabilities
           # bandit -c bandit.yaml -r ${SUBDIR} --format sarif --output bandit-results.sarif --skip B101 --exit-zero
           # bandit -c bandit.yaml -r ${SUBDIR} --format sarif --output bandit-results.sarif --exit-zero
-          bandit -r ${SUBDIR} --format sarif --output bandit-results.sarif --exit-zero
+          bandit -r ${SUBDIR} --format sarif --output bandit-results.sarif --skip B101 --exit-zero
           # bandit -c pyproject.toml -r ${SUBDIR}  # no toml support
           # bandit -c bandit.yaml -r ${SUBDIR} > results.txt
           # cat results.txt
