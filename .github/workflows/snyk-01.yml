@@ -9,6 +9,8 @@ on:
 jobs:
   security:
     runs-on: ubuntu-latest
+    # defaults:
+    #   run:
     steps:
       # - uses: actions/checkout@master
       - name: Checkout code
@@ -24,9 +26,9 @@ jobs:
           # pip freeze
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/python-3.8@master
-        working-directory: aws-dynamodb-encryption-python
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        working-directory: aws-dynamodb-encryption-python
         if:  ${{ '0' == '0' }}
 
 # TODO: command line:
