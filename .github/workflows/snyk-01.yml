@@ -9,9 +9,9 @@ on:
 jobs:
   security:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: aws-dynamodb-encryption-python
+    # defaults:
+    #   run:
+    #     working-directory: aws-dynamodb-encryption-python
     steps:
       # - uses: actions/checkout@master
       - name: Checkout code
