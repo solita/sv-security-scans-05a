@@ -20,8 +20,8 @@ jobs:
           python3 -m venv zvenv
           source zvenv/bin/activate
           pip install pip -U
-          pip install -r aws-dynamodb-encryption-python/requirements.txt
-          pip freeze
+          # pip install -r aws-dynamodb-encryption-python/requirements.txt
+          # pip freeze
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/python-3.8@master
         env:
