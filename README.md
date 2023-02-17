@@ -21,7 +21,7 @@ See the file `2023-02-17-github-security-02.pptx`
 * main
 ```
 
-They contain Bandit scans, direct (-03) and using actions on two Python 
+They contain Bandit scans, direct (-03) and using actions (-04) on two Python 
 subdirectories:
 
 ```

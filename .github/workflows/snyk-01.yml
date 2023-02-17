@@ -1,0 +1,19 @@
+# 2023-02-17
+
+name: Example workflow for Python-3.8 using Snyk
+on:
+  push:
+    branches:
+      - snyk-01
+      # - nonexistent  # avoid triggering
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      # - uses: actions/checkout@master
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/python-3.8@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
