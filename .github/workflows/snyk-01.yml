@@ -17,6 +17,11 @@ jobs:
           set -ux
           pwd
           ls -al
+          python3 -m venv zvenv
+          source zvenv/bin/activate
+          pip install pip -U
+          pip install aws-dynamodb-encryption-python/requirements.txt
+          pip freeze
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/python-3.8@master
         env:
@@ -35,8 +40,9 @@ jobs:
 # -e "GITHUB_WORKSPACE" -e "GITHUB_ACTION" -e "GITHUB_EVENT_PATH" -e "GITHUB_ACTION_REPOSITORY" -e "GITHUB_ACTION_REF"
 # -e "GITHUB_PATH" -e "GITHUB_ENV" -e "GITHUB_STEP_SUMMARY" -e "GITHUB_STATE" -e "GITHUB_OUTPUT" -e "RUNNER_OS"
 # -e "RUNNER_ARCH" -e "RUNNER_NAME" -e "RUNNER_TOOL_CACHE" -e "RUNNER_TEMP" -e "RUNNER_WORKSPACE" -e "ACTIONS_RUNTIME_URL"
-# -e "ACTIONS_RUNTIME_TOKEN" -e "ACTIONS_CACHE_URL" -e GITHUB_ACTIONS=true -e CI=true -
-# v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work/_temp/_github_home":"/github/home"
+# -e "ACTIONS_RUNTIME_TOKEN" -e "ACTIONS_CACHE_URL" -e GITHUB_ACTIONS=true -e CI=true
+# -v "/var/run/docker.sock":"/var/run/docker.sock"
+# -v "/home/runner/work/_temp/_github_home":"/github/home"
 # -v "/home/runner/work/_temp/_github_workflow":"/github/workflow"
 # -v "/home/runner/work/_temp/_runner_file_commands":"/github/file_commands"
 # -v "/home/runner/work/sv-security-scans-05a/sv-security-scans-05a":"/github/workspace"
