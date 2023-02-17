@@ -9,8 +9,9 @@ on:
 jobs:
   security:
     runs-on: ubuntu-latest
-    # defaults:
-    #   run:
+    defaults:
+      run:
+        working-directory: aws-dynamodb-encryption-python
     steps:
       # - uses: actions/checkout@master
       - name: Checkout code
@@ -23,12 +24,12 @@ jobs:
           source zvenv/bin/activate
           pip install pip -U
           # pip install -r aws-dynamodb-encryption-python/requirements.txt
-          # pip freeze
+          pip freeze
+          ls -l
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/python-3.8@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        working-directory: aws-dynamodb-encryption-python
         if:  ${{ '0' == '0' }}
 
 # TODO: command line:
